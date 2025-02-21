@@ -2,7 +2,7 @@
 
 /*
 console.log(document.querySelector(".message").textContent);
-document.querySelector(".message").textContent = "correct number ";
+
 
 document.querySelector(".number").textContent = 15;
 document.querySelector(".score").textContent = 10;
