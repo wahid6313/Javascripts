@@ -92,11 +92,13 @@ btnHold.addEventListener("click", function () {
       document
         .querySelector(`.player--${activePlayer}`)
         .classList.remove("player--active");
+    } else {
+      //switch another player---
+      switching();
     }
-
-    //switch another player---
-    switching();
   }
 });
 
 btnNew.addEventListener("click", init);
+
+
