@@ -42,36 +42,62 @@
 
 // REGULAR FUNCTION VS ARROW FUNCTION;
 
-const wahid = {
+// const wahid = {
+//   firstName: "wahid",
+//   year: 2000,
+//   ObejectAge: function () {
+//     //   console.log(this); //function return------
+//     console.log(2020 - this.year);
+
+//     //--------------------------------
+//     //-----SOLUTION 1 -------------
+//     const self = this;
+//     const isMilleniel = function () {
+//       console.log(self);
+//       console.log(self.year >= 1900 && self.year <= 2050);
+//     };
+
+//     //--------------------------------
+//     // -------- SOLUTION 2 -----------
+//     const isMilleniels = () => {
+//       console.log(this);
+//       console.log(this.year >= 2010 && this.year <= 2050);
+//     };
+
+//     isMilleniel();
+//     isMilleniels();
+//   },
+
+//   greet: () => {
+//     // console.log(this); //window function---------
+//     console.log(`hey i am ${this.firstName}`);
+//   },
+// };
+
+// wahid.greet();
+// wahid.ObejectAge();
+
+//---------SHALLOW COPYING-------
+const test = {
   firstName: "wahid",
-  year: 2000,
-  ObejectAge: function () {
-    //   console.log(this); //function return------
-    console.log(2020 - this.year);
-
-    //--------------------------------
-    //-----SOLUTION 1 -------------
-    // const self = this;
-    // const isMilleniel = function () {
-    // console.log(self);
-    // console.log(self.year >= 1900 && self.year <= 2050);
-    // };
-
-    //--------------------------------
-    // -------- SOLUTION 2 -----------
-    const isMilleniel =  () => {
-      console.log(this);
-      console.log(this.year >= 1900 && this.year <= 2050);
-    };
-
-    isMilleniel();
-  },
-
-  greet: () => {
-    // console.log(this); //window function---------
-    console.log(`hey i am ${this.firstName}`);
-  },
+  lastName: "ali",
+  family: ["waihd", "ali"],
 };
 
-wahid.greet();
-wahid.ObejectAge();
+// const testCopy = { ...test };
+// testCopy.lastName = "raza";
+
+// testCopy.family.push("sidhant");
+// testCopy.family.push("yuvraj");
+
+// console.log("before: ", test);
+// console.log("after: ", testCopy);
+
+//-------DEEP COPYING / CLONE----
+const testClone = structuredClone(test);
+
+testClone.family.push("sidhant");
+testClone.family.push("yuvraj");
+
+console.log("original : ", test);
+console.log("clone : ", testClone);
