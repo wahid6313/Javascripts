@@ -95,6 +95,7 @@ const test = {
 
 //-------DEEP COPYING / CLONE----
 const testClone = structuredClone(test);
+testClone.lastName = "raza";
 
 testClone.family.push("sidhant");
 testClone.family.push("yuvraj");
