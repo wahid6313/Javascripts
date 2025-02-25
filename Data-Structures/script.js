@@ -33,20 +33,68 @@ const restaurant = {
       `orderreceived! ${this.starterMenu[starterIndex]} and ${this.mainMenu[mainIndex]} will be delivered to ${address} at ${time}`
     );
   },
+  orderPizza: function (mainIngredients, ...otherIngredients) {
+    console.log(mainIngredients);
+    console.log(otherIngredients);
+  },
 };
 
+/*
+/////////////////////////////////////////////////
+////REST PATTERN AND PARAMETERS-------------------
+
+const [pizza, , rositto, ...otherFood] = [
+  ...restaurant.mainMenu,
+  ...restaurant.starterMenu,
+];
+console.log(pizza, rositto, otherFood);
+
+//objects--
+const { sat, ...weekdays } = restaurant.openingHours;
+console.log(weekdays);
+
+//function---
+const add = function (...numbers) {
+  let sum = 0;
+  for (let i = 0; i < numbers.length; i++) {
+    sum += numbers[i];
+  }
+  console.log(sum);
+};
+add(2, 3);
+add(2, 3, 4, 5);
+add(2, 3, 4, 5, 6, 7, 8, 9);
+
+const x = [5, 14, 44];
+add(...x);
+
+restaurant.orderPizza("mushrooms", "onions", "spanish", "olives");
+
+*/
+
+/*
+///////////////////////////////////////
+//SPREAD OPERATOR --------------------
 
 
+const arr = [7, 8, 9];
+const badNewArr = [2, 3, arr[0], arr[2]];
+console.log(badNewArr);
 
+//join two arrays----
+const menu = [...restaurant.starterMenu, ...restaurant.mainMenu];
+console.log(menu);
 
-
-
-
+const str = "wahid";
+const letters = [...str, " ", "ali"];
+console.log(letters);
+console.log(...str);
+*/
 
 /*
 ///////////////////////////////////////////////
 ////DESTRUCTURINGS OBJECTS----------------------
-//////////////////////////////////////////////
+
 
 restaurant.orderDelivery({
     time: "22:40",
@@ -87,7 +135,7 @@ console.log(o, c);
 /*
 ///////////////////////////////////////////////
 ////DESTRUCTURINGS ARRAYS----------------------
-//////////////////////////////////////////////
+
 
 
 const arr = [2, 3, 4];
