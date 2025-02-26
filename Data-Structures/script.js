@@ -39,6 +39,40 @@ const restaurant = {
   },
 };
 
+
+
+
+/*
+/////////////////////////////////////////////////
+//NULISH COLASHING OPERATOR---------------------
+
+restaurant.guestoption = 0;
+const guest2 = restaurant.guestoption || 20;
+console.log(guest2);
+
+//NULLISH: null and undefined-------------------
+const newGuest = restaurant.guestoption ?? 30;
+console.log(newGuest);
+*/
+
+/*
+/////////////////////////////////////////////////
+//SHORT CIRCUITUNG------------------------------
+
+console.log(0 || null || "wahid" || 20);
+console.log(0 && null && "wahid" && 20);
+
+// restaurant.guestoption = 23;
+const guest1 = restaurant.guestoption ? restaurant.guestoption : 10;
+console.log(guest1);
+
+const guest2 = restaurant.guestoption || 20;
+console.log(guest2);
+
+const guest3 = restaurant.guestoption && 20;
+console.log(guest3);
+*/
+
 /*
 /////////////////////////////////////////////////
 ////REST PATTERN AND PARAMETERS-------------------
