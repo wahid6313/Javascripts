@@ -28,12 +28,12 @@ const restaurant = {
     return [this.starterMenu[starterIndex], this.mainMenu[mainIndex]];
   },
 
-  orderDelivery: function ({ starterIndex, mainIndex, time, address }) {
+  orderDelivery({ starterIndex, mainIndex, time, address }) {
     console.log(
       `orderreceived! ${this.starterMenu[starterIndex]} and ${this.mainMenu[mainIndex]} will be delivered to ${address} at ${time}`
     );
   },
-  orderPizza: function (mainIngredients, ...otherIngredients) {
+  orderPizza(mainIngredients, ...otherIngredients) {
     console.log(mainIngredients);
     console.log(otherIngredients);
   },
@@ -41,6 +41,13 @@ const restaurant = {
 
 
 
+///FOR OF LOOP--------------
+const menu = [...restaurant.starterMenu, ...restaurant.mainMenu];
+console.log(menu);
+
+for (const item of menu) console.log(item);
+
+for (const [i, el] of menu.entries()) console.log(`${i + 1}: ${el}`);
 
 /*
 /////////////////////////////////////////////////
