@@ -39,7 +39,19 @@ const restaurant = {
   },
 };
 
+function x() {
+  var a = 6;
 
+  function y() {
+    console.log(a);
+  }
+  var a =100;
+  return y;
+}
+
+var z = x();
+console.log(z);
+z();
 
 ///FOR OF LOOP--------------
 const menu = [...restaurant.starterMenu, ...restaurant.mainMenu];
