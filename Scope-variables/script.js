@@ -17,15 +17,14 @@ function calAge(birthdate) {
       console.log(str);
     }
     //does not access outside because it is block scope;
-    // console.log(str); 
+    // console.log(str);
 
     //var is a function scope not a block scope;
-    console.log(millenial); 
+    console.log(millenial);
   }
   printAge();
   return age;
 }
-
 
 // global scope --------------------
 const firstName = "wahid ali----";
