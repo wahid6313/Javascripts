@@ -142,20 +142,6 @@ planeInLine(12);
 // const time = 3;
 // console.log(rest.get(time > rest.get("open") && time < rest.get("close")));
 
-// function x() {
-//   var a = 6;
-
-//   function y() {
-//     console.log(a);
-//   }
-//   var a = 100;
-//   return y;
-// }
-
-// var z = x();
-// console.log(z);
-// z();
-
 // //optional chaining---------
 // console.log(restaurant.openingHours.mon?.open);
 
