@@ -81,9 +81,9 @@ const displaMovements = function (movements) {
 };
 
 // CURRENT BALANCE-----
-const calcDisplayMovements = function (movements) {
-  const balance = movements.reduce((acc, mov) => acc + mov, 0);
-  labelBalance.textContent = `${balance} INR`;
+const calcDisplayMovements = function (acc) {
+  acc.balance = acc.movements.reduce((acc, mov) => acc + mov, 0);
+  labelBalance.textContent = `${acc.balance} INR`;
 };
 
 // IN AND OUT AND INTEREST BALANCE------
@@ -107,6 +107,18 @@ const calcDisplaySummary = function (acc) {
     })
     .reduce((int, acc) => int + acc, 0);
   labelSumInterest.textContent = `${interest}₹`;
+};
+
+// UPDATE UI----
+const updateUi = function (acc) {
+  // DISPLAY MOVEMENTS--
+  displaMovements(acc.movements);
+
+  // DISPLAY BALANCE--
+  calcDisplayMovements(acc);
+
+  // DISPLAY SUMMARY--
+  calcDisplaySummary(acc);
 };
 
 // USERNAME------
@@ -142,16 +154,50 @@ btnLogin.addEventListener("click", function (e) {
     inputLoginUsername.value = inputLoginPin.value = "";
     inputLoginPin.blur();
 
-    // DISPLAY MOVEMENTS--
-    displaMovements(currentAccount.movements);
-
-    // DISPLAY BALANCE--
-    calcDisplayMovements(currentAccount.movements);
-
-    // DISPLAY SUMMARY--
-    calcDisplaySummary(currentAccount);
+    updateUi(currentAccount);
   }
 });
+
+btnTransfer.addEventListener("click", function (e) {
+  e.preventDefault();
+  const amount = Number(inputTransferAmount.value);
+  const receiverAcc = accounts.find(
+    (acc) => acc.userName === inputTransferTo.value
+  );
+
+  inputTransferAmount.value = inputTransferTo.value = "";
+
+  if (
+    amount > 0 &&
+    receiverAcc &&
+    currentAccount.balance >= amount &&
+    receiverAcc?.userName !== currentAccount.userName
+  ) {
+    currentAccount.movements.push(-amount);
+    receiverAcc.movements.push(amount);
+
+    updateUi(currentAccount);
+  }
+});
+
+btnClose.addEventListener("click", function (e) {
+  e.preventDefault();
+
+  if (
+    inputCloseUsername.value === currentAccount.userName &&
+    Number(inputClosePin.value) === currentAccount.pin
+  ) {
+    const index = accounts.findIndex(
+      (acc) => acc.userName == currentAccount.userName
+    );
+    console.log(index);
+
+    accounts.splice(index, 1);
+    containerApp.style.opacity = 0;
+  }
+  inputCloseUsername.value = inputClosePin.value = "";
+});
+
 console.log(accounts);
 
 /////////////////////////////////////////////////
