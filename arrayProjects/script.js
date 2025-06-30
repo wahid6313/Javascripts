@@ -79,28 +79,35 @@ const displaMovements = function (movements) {
     containerMovements.insertAdjacentHTML("afterbegin", html);
   });
 };
-displaMovements(account1.movements);
 
 // CURRENT BALANCE-----
 const calcDisplayMovements = function (movements) {
   const balance = movements.reduce((acc, mov) => acc + mov, 0);
   labelBalance.textContent = `${balance} INR`;
 };
-calcDisplayMovements(account1.movements);
 
-// IN AND OUT BALANCE----
-const calcDisplaySummary = function (movements) {
-  const incomes = movements
+// IN AND OUT AND INTEREST BALANCE------
+const calcDisplaySummary = function (acc) {
+  const incomes = acc.movements
     .filter((mov) => mov > 0)
     .reduce((acc, mov) => acc + mov, 0);
   labelSumIn.textContent = `${incomes}₹`;
 
-  const out = movements
+  const out = acc.movements
     .filter((mov) => mov < 0)
     .reduce((mov, acc) => mov + acc, 0);
   labelSumOut.textContent = `${Math.abs(out)}₹`;
+
+  const interest = acc.movements
+    .filter((mov) => mov > 0)
+    .map((deposits) => (deposits * acc.interestRate) / 100)
+    .filter((int, i, arr) => {
+      // console.log(arr);
+      return int >= 1;
+    })
+    .reduce((int, acc) => int + acc, 0);
+  labelSumInterest.textContent = `${interest}₹`;
 };
-calcDisplaySummary(account1.movements);
 
 // USERNAME------
 const createUserNames = function (accs) {
@@ -113,6 +120,38 @@ const createUserNames = function (accs) {
   });
 };
 createUserNames(accounts);
+// console.log(accounts);
+
+let currentAccount;
+
+btnLogin.addEventListener("click", function (e) {
+  e.preventDefault();
+
+  currentAccount = accounts.find(
+    (acc) => acc.userName === inputLoginUsername.value
+  );
+  console.log(currentAccount);
+
+  if (currentAccount?.pin === Number(inputLoginPin.value)) {
+    labelWelcome.textContent = `Welcome back, ${
+      currentAccount.owner.split(" ")[0]
+    }`;
+    containerApp.style.opacity = 100;
+
+    // CLEAR--
+    inputLoginUsername.value = inputLoginPin.value = "";
+    inputLoginPin.blur();
+
+    // DISPLAY MOVEMENTS--
+    displaMovements(currentAccount.movements);
+
+    // DISPLAY BALANCE--
+    calcDisplayMovements(currentAccount.movements);
+
+    // DISPLAY SUMMARY--
+    calcDisplaySummary(currentAccount);
+  }
+});
 console.log(accounts);
 
 /////////////////////////////////////////////////
@@ -177,11 +216,19 @@ const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 // });
 // console.log(maximum);
 
-const euroToUsd = 1.1;
+// const euroToUsd = 1.1;
 
-// PIPELINE
-const totalBalace = movements
-  .filter((mov) => mov > 0)
-  .map((mov) => mov * euroToUsd)
-  .reduce((acc, mov) => acc + mov, 0);
-console.log(totalBalace);
+// // PIPELINE
+// const totalBalace = movements
+//   .filter((mov) => mov > 0)
+//   .map((mov) => mov * euroToUsd)
+//   .reduce((acc, mov) => acc + mov, 0);
+// console.log(totalBalace);
+
+// // FIND ----------
+// const firstWithdrawl = movements.find((mov) => mov < 0);
+// console.log(movements);
+// console.log(firstWithdrawl);
+
+// const account = accounts.find((acc) => acc.owner === "Jessica Davis");
+// console.log(account);
