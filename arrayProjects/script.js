@@ -304,3 +304,21 @@ const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 // console.log(movements.some(deposits));
 // console.log(movements.every(deposits));
 // console.log(movements.filter(deposits));
+
+// FLAT ------------
+const overAllBalance = accounts
+  .map((mov) => mov.movements)
+  .flat()
+  .reduce((acc, mov) => acc + mov, 0);
+
+console.log(overAllBalance);
+
+// FLAT MAP --------
+const overAllBalance2 = accounts
+  .flatMap((mov) => mov.movements)
+  .reduce((acc, mov) => acc + mov, 0);
+
+console.log(overAllBalance2);
+
+movements.sort((a, b) => a - b);
+console.log(movements);
