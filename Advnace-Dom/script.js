@@ -69,11 +69,87 @@ btnScrollTo.addEventListener("click", function (e) {
 ///////////////////////////////////////////////////
 // NAVIGATIONS -----
 
-document.querySelectorAll(".nav__link").forEach(function (el) {
-  el.addEventListener("click", function (e) {
-    e.preventDefault();
-    console.log("click");
-  });
+// document.querySelectorAll(".nav__link").forEach(function (el) {
+//   el.addEventListener("click", function (e) {
+//     e.preventDefault();
+//     const id = this.getAttribute("href");
+//     console.log(id);
+
+//     document.querySelector(id).scrollIntoView({ behavior: "smooth" });
+//   });
+// });
+
+// 1. Add event listener to common parent element
+// 2. Determine what element originated the event
+
+document.querySelector(".nav__links").addEventListener("click", function (e) {
+  e.preventDefault();
+
+  // matching strategy
+  if (e.target.classList.contains("nav__link")) {
+    const id = e.target.getAttribute("href");
+    document.querySelector(id).scrollIntoView({ behavior: "smooth" });
+  }
+});
+
+///////////////////////////////////////////////////
+// TAB COMPONENTS -----
+
+const tabs = document.querySelectorAll(".operations__tab");
+const tabsConatiner = document.querySelector(".operations__tab-container");
+const tabsContain = document.querySelectorAll(".operations__content");
+
+tabsConatiner.addEventListener("click", function (e) {
+  const clicked = e.target.closest(".operations__tab");
+  // console.log(clicked);
+
+  if (!clicked) return;
+
+  tabs.forEach((t) => t.classList.remove("operations__tab--active"));
+  tabsContain.forEach((c) => c.classList.remove("operations__content--active"));
+
+  clicked.classList.add("operations__tab--active");
+
+  document
+    .querySelector(`.operations__content--${clicked.dataset.tab}`)
+    .classList.add("operations__content--active");
+});
+
+///////////////////////////////////////////////////
+// MENU FADE ANIMATIONS -----
+
+const nav = document.querySelector(".nav");
+
+const handler = function (e) {
+  if (e.target.classList.contains("nav__link")) {
+    const link = e.target;
+    const siblings = e.target.closest(".nav").querySelectorAll(".nav__link");
+    const logo = e.target.closest(".nav").querySelector("img");
+
+    siblings.forEach((el) => {
+      if (el !== link) el.style.opacity = this;
+    });
+    logo.style.opacity = this;
+  }
+};
+
+// nav.addEventListener("mouseover", function (e) {
+//   handler(e, 0.5);
+// });
+nav.addEventListener("mouseover", handler.bind(0.5));
+nav.addEventListener("mouseout", handler.bind(1));
+
+///////////////////////////////////////////////////
+// STICKY NAVIGATIONS -----
+
+const initialCoords = section1.getBoundingClientRect();
+// console.log(initialCoords);
+
+window.addEventListener("scroll", function () {
+  console.log(scrollY);
+
+  if (window.scrollY > initialCoords.top) nav.classList.add("sticky");
+  else nav.classList.remove("sticky");
 });
 
 ///////////////////////////////////////////////////
@@ -89,26 +165,53 @@ message.innerHTML =
 
 // header.prepend(message);
 
-header.append(message);
+// header.append(message);
 // header.append(message.cloneNode(true));
 
 message.style.backgroundColor = "#37383d";
 message.style.width = "120%";
 
-console.log(getComputedStyle(message).height);
+// console.log(getComputedStyle(message).height);
 
-message.style.height =
-  Number.parseFloat(getComputedStyle(message).height, 10) + 30 + "px";
+// message.style.height =
+//   Number.parseFloat(getComputedStyle(message).height, 10) + 30 + "px";
 
-const logo = document.querySelector(".nav__logo");
-console.log(logo.dataset.versionNumber);
+// const logo = document.querySelector(".nav__logo");
+// console.log(logo.dataset.versionNumber);
 
-const h1 = document.querySelector("h1");
+// const h1 = document.querySelector("h1");
 
-const alert1 = function () {
-  alert("welcome my webpage");
-};
+// const alert1 = function () {
+//   alert("welcome my webpage");
+// };
 
-h1.addEventListener("mouseenter", alert1);
+// h1.addEventListener("mouseenter", alert1);
 
-setTimeout(() => h1.removeEventListener("mouseenter", alert1), 3000);
+// setTimeout(() => h1.removeEventListener("mouseenter", alert1), 3000);
+
+// // going downward: child
+// console.log(h1.childNodes);
+// console.log(h1.children);
+
+// // going upwards: parents
+// console.log(h1.parentNode);
+// console.log(h1.parentElement);
+
+// // going sideways: siblings
+// console.log(h1.previousSibling);
+
+// console.log(h1.parentElement.children);
+[...h1.parentElement.children].forEach((el) => {
+  // if (el !== h1) el.style.transform = "scale(0.5)";
+});
+
+// event delegation ---
+// Event Delegation is a technique in JavaScript where you attach a single event listener to a parent element instead of multiple child elements.
+
+const list = document.querySelector(".nav__links");
+
+list.addEventListener("click", function (e) {
+  if (e.target.classList.contains("nav__link")) {
+    console.log("click");
+  }
+});
