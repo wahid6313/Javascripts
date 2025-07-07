@@ -146,17 +146,90 @@ const initialCoords = section1.getBoundingClientRect();
 // console.log(initialCoords);
 
 window.addEventListener("scroll", function () {
-  console.log(scrollY);
+  // console.log(scrollY);
 
   if (window.scrollY > initialCoords.top) nav.classList.add("sticky");
   else nav.classList.remove("sticky");
 });
 
 ///////////////////////////////////////////////////
-///////////////////////////////////////////////////
-///////////////////////////////////////////////////
+// THE INTERSECTIONS OBSERVER API -----
 
 const header = document.querySelector(".header");
+
+const stickyNav = function (entries) {
+  const [entry] = entries; // Get the first and only entry
+  // console.log(entry);
+
+  if (!entry.isIntersecting) {
+    nav.classList.add("sticky");
+  } else {
+    nav.classList.remove("sticky");
+  }
+};
+
+const headerObserver = new IntersectionObserver(stickyNav, {
+  root: null, // viewport
+  threshold: 0, // trigger when header is 0% visible
+  rootMargin: "-90px", // 90px before header hits top
+});
+
+headerObserver.observe(header);
+
+///////////////////////////////////////////////////
+// REVEAL SECTIONS -----
+
+const allSection = document.querySelectorAll(".section");
+
+const revealSection = function (entries, observer) {
+  entries.forEach((entry) => {
+    if (!entry.isIntersecting) return;
+
+    entry.target.classList.remove("section--hidden");
+  });
+};
+
+const sectionObserver = new IntersectionObserver(revealSection, {
+  root: null, //viewport
+  threshold: 0.15,
+});
+
+allSection.forEach((section) => {
+  sectionObserver.observe(section);
+  section.classList.add("section--hidden");
+});
+
+///////////////////////////////////////////////////
+// LAZY LOADING IMAGES -----
+
+const imgTargets = document.querySelectorAll("img[data-src]");
+// console.log(imgTargets);
+
+const loadImg = function (entries, observer) {
+  const [entry] = entries;
+
+  if (!entry.isIntersecting) return;
+
+  entry.target.src = entry.target.dataset.src;
+
+  entry.target.addEventListener("load", function () {
+    entry.target.classList.remove("lazy-img");
+  });
+
+  observer.unobserve(entry.target);
+};
+
+const imageObserver = new IntersectionObserver(loadImg, {
+  root: null,
+  threshold: 0,
+  rootMargin: "-200px",
+});
+
+imgTargets.forEach((img) => imageObserver.observe(img));
+
+///////////////////////////////////////////////////
+///////////////////////////////////////////////////
+///////////////////////////////////////////////////
 
 const message = document.createElement("div");
 message.classList.add("cookie-message");
@@ -201,9 +274,9 @@ message.style.width = "120%";
 // console.log(h1.previousSibling);
 
 // console.log(h1.parentElement.children);
-[...h1.parentElement.children].forEach((el) => {
-  // if (el !== h1) el.style.transform = "scale(0.5)";
-});
+// [...h1.parentElement.children].forEach((el) => {
+//   // if (el !== h1) el.style.transform = "scale(0.5)";
+// });
 
 // event delegation ---
 // Event Delegation is a technique in JavaScript where you attach a single event listener to a parent element instead of multiple child elements.
