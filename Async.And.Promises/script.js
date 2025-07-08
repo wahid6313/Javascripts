@@ -3,31 +3,15 @@
 const btn = document.querySelector(".btn-country");
 const countriesContainer = document.querySelector(".countries");
 
-/**
- * What is async?
- * What is await ?
- * How async await works behind the scenes?
- * Examples of using async/await
- * Error Handling
- * Interviews
- * Async await vs Promise.then/.catch
- */
-
-// always return a promise
-// async function getData() {
-//   return "namastey";
-// }
-
-// const data = getData();
-// console.log(data);
-
-// data.then((res) => console.log(res));
-
 // NEW COUNTRIES API URL (use instead of the URL shown in videos):
 // https://restcountries.com/v2/name/portugal
 
 // NEW REVERSE GEOCODING API URL (use instead of the URL shown in videos):
 // https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${lat}&longitude=${lng}
+
+//
+
+//
 
 ///////////////////////////////////////
 //////// NAMASTEY JAVASCRIPTS /////////
@@ -58,6 +42,7 @@ createOrder(cart)
   });
 */
 
+/*
 // creating the promise ----
 
 const cart = ["shoes", "pants", "kurta"];
@@ -101,6 +86,7 @@ function proceedToPayment(orderId) {
 function validateCart(cart) {
   return true;
 }
+*/
 
 /*
 const image_API =
@@ -113,3 +99,70 @@ user.then(function (data) {
   console.log(data);
 });
 */
+
+///////////////////////////////////////
+// ASYNCHRONOUS WAIT----
+
+/**
+ * What is async?
+ * What is await ?
+ * How async await works behind the scenes?
+ * Examples of using async/await
+ * Error Handling
+ * Interviews
+ * Async await vs Promise.then/.catch
+ *
+ * In promise me js engine wait nahi karega resolved hone me wo next line code execute karega but in async await me js engine wait karega promise resolve hone me uske baad next line code execute karega 🙂.
+ */
+
+/*
+// // always return a promise
+
+const p = new Promise(function (resolve, reject) {
+  setTimeout(() => {
+    resolve("promise resolve success2");
+  }, 10000);
+});
+
+const p2 = new Promise(function (resolve, reject) {
+  setTimeout(() => {
+    resolve("promise resolve success2");
+  }, 20000);
+});
+
+async function handlePromise() {
+  console.log("world");
+
+  const val = await p;
+  console.log("hello world");
+  console.log(val);
+
+  const val2 = await p2;
+  console.log("hello world");
+  console.log(val2);
+}
+handlePromise();
+
+// function getData() {
+//   p.then((res) => console.log(res));
+//   console.log("hello world");
+// }
+
+// getData();
+*/
+
+// Fetch-------
+const API_url = "https://api.github.com/users/wahid6313";
+
+async function handlePromise() {
+  const data = await fetch(API_url);
+  setTimeout(function () {
+    console.log("hello world");
+  }, 3000);
+  const jsonValue = await data.json();
+  console.log(jsonValue);
+
+  // fetch().then(res => res.json()).then(res => console.log);
+  // fetch() => response.json() => jsonVlaue
+}
+handlePromise();
