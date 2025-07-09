@@ -165,4 +165,4 @@ async function handlePromise() {
   // fetch().then(res => res.json()).then(res => console.log);
   // fetch() => response.json() => jsonVlaue
 }
-handlePromise();
+handlePromise().catch((err) => console.log(err));
