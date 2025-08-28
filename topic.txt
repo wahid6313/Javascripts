@@ -1,0 +1,28 @@
+ Data Table (sorting, filtering, pagination)
+ File Upload (with preview & progress bar)
+ Carousel / Image Slider (auto + manual controls)
+ Infinite Scroll / Virtualized List
+ Date Picker / Calendar
+ Multi-Select Dropdown (with chips)
+ Drag & Drop List (reorderable)
+ Debounced Search (API integration)
+ Theme Switcher (dark/light mode)
+ Rich Text Editor (basic version)
+
+
+
+⚡ Expert Level (Real-World / System Design Style)
+👉 These test architecture, performance, and scaling.
+
+
+ Chat UI (real-time messages with WebSockets)
+ Kanban Board (like Trello, draggable cards)
+ Notification Panel (live updates, read/unread)
+ Dashboard Widgets (charts, filters, cards)
+ Custom Hooks (e.g., useLocalStorage, useFetch)
+ Authentication Flow (login/logout, protected routes)
+ File Preview Gallery (images, docs, PDFs)
+ Tree View / Nested Menu
+ Reusable Modal Manager (multiple modals)
+ Form Wizard (multi-step with validations)
+ Code Editor with Syntax Highlighting (basic)

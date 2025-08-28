@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+        const privateFunction = (() => {
+            let count = 0;
+            console.log(`private count: ${count}`);
+            return (() => {count += 1, console.log(count)})
+        })();
+
+        privateFunction();
+
+        //Prototype----------
+
+        const person = {
+            alive: true,
+        }
+        const musician = {
+            plays: true,
+        }
+
+        Object.setPrototypeOf(musician, person);
+
+        console.log(musician.plays);
+        console.log(musician.alive);
+
+        const guitar = {
+            string: 6,
+            __proto__: musician,
+        }
+        console.log(guitar.alive);
+        console.log(guitar.plays);
+        console.log(guitar.string);
+
+        ///////////////////////////////
+
+        function Animal(species) {
+            this.species = species;
+            this.eats = true;
+        }
+
+        Animal.prototype.walks = function () {
+            return `a ${this.species} is walking`;
+        }
+
+        const Bear = new Animal("bear");
+
+        console.log(Bear.species);
+        console.log(Bear.walks());
+
+        ///////////////////////////////
+
+        function Person(name) {
+            this.name = name;
+        }
+
+        Person.prototype.country = "India";
+
+        Person.prototype.greet = function () {
+            console.log(`Hi I'm ${this.name} from ${this.country}`)
+        }
+
+        const step1 = new Person("wahid");
+        const step2 = new Person("ali");
+
+        step1.greet();
+        step2.greet();
+
+    </script>
+</body>
+</html>

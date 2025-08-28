@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Table</title>
+
+    <style>
+    table { border-collapse: collapse; width: 100%; margin-top: 16px; }
+    th, td { border: 1px solid #ccc; padding: 12px; text-align: left; cursor: pointer; }
+    th { background: #f2f2f2;}
+    .controls { margin: 10px 0; }
+    button { margin: 0 5px; cursor: pointer;}
+  </style>
+</head>
+<body>
+    <h1>Data Table  ( Sorting , Filtering , Paginations )</h1>
+
+    <!-- Filter -->
+  <div class="controls">
+    <input type="text" id="search" placeholder="Search by name...">
+  </div>
+
+  <!-- Table -->
+  <table id="table">
+    <thead>
+      <tr>
+        <th data-key="id">ID</th>
+        <th data-key="name">Name</th>
+        <th data-key="age">Age</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+
+  <!-- Pagination -->
+  <div class="controls">
+    <button id="prev">Prev</button>
+    <span id="pageInfo"></span>
+    <button id="next">Next</button>
+  </div>
+
+  <!-- Javascripts Concepts--- -->
+  <script>
+
+    const data = [
+        {id:1, name: "wahid", age: 22},
+        {id:2, name: "yuvraj", age: 23},
+        {id:3, name: "Sidhant", age: 24},
+        {id:4, name: "Utkarsh", age: 25},
+        {id:5, name: "Ali", age: 22},
+        {id:6, name: "Raza", age: 20},
+        {id:7, name: "Heena", age: 24},
+        {id:8, name: "Sahiba", age: 19},
+        {id:9, name: "Zoya", age: 12},
+        {id:10, name: "Aditya", age: 32},
+        
+    ]
+    let currentPage = 1;
+    const rowsPerPage = 4;
+    let currentData = [...data];
+   
+
+    const tbody = document.querySelector("#table tbody");
+    const searchInput = document.getElementById("search");
+    const pageInfo = document.getElementById("pageInfo");
+
+    // Render Table--
+    function renderTable() {
+        tbody.innerHTML = "";
+        const start = (currentPage - 1) * rowsPerPage;
+        const end = start + rowsPerPage;
+        const pageData = currentData.slice(start, end);
+
+        console.log(start);
+        console.log(end);
+        console.log(pageData);
+
+        pageData.forEach(row => {
+            const tr = document.createElement("tr");
+            tr.innerHTML = `<td>${row.id}</td><td>${row.name}</td><td>${row.age}</td>`
+            tbody.appendChild(tr);
+
+        });
+        pageInfo.textContent = `Page ${currentPage} of ${Math.ceil(currentData.length / rowsPerPage)}`;
+    }
+
+    // Filtering
+    searchInput.addEventListener("input", (e) => {
+      const value = e.target.value.toLowerCase();
+      currentData = data.filter(d => d.name.toLowerCase().includes(value));
+      currentPage = 1;
+      renderTable();
+    });
+
+    // Pagination
+    document.getElementById("prev").addEventListener("click", () => {
+      if (currentPage > 1) {
+        currentPage--;
+        renderTable();
+      }
+    });
+
+    document.getElementById("next").addEventListener("click", () => {
+      if (currentPage < Math.ceil(currentData.length / rowsPerPage)) {
+        currentPage++;
+        renderTable();
+      }
+    });
+    renderTable();
+    
+  </script>
+</body>
+</html>
