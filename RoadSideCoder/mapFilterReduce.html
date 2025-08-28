@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /*
+        const nums = [1, 2, 3, 4];
+        const sum = nums.reduce((acc, curr, i, arr) => {
+            return acc + curr;
+        }, 0)
+        console.log(sum);
+        */
+
+        // Polyfills for map ----------------------
+        // nums.map((num, i , arr) => {})
+
+        /*
+        Array.prototype.myMap = function (cb) {
+            let arr = [];
+            for (let i = 0; i < this.length; i++) {
+                arr.push(cb(this[i], i, this));
+            }
+            return arr;
+        }
+
+        const nums = [1, 2, 3, 4];
+        const sum = nums.myMap((num, i , arr) => {
+            return num*3;
+        })
+        console.log(sum);
+        */
+
+        // Polyfills for Filter-------------------
+        // num, i, arr
+
+        /*
+        Array.prototype.myFilter = function (cb)  {
+            let arr2 = [];
+            for(let i =0; i< this.length; i++) {
+                if(cb(this[i], i, this)) arr2.push(this[i]);
+            }
+            return arr2;
+        }
+
+        const temp = [1,2 ,3 ,4 ];
+        const display = temp.myFilter((num) => {
+            return num > 2;
+        })
+        console.log(display);
+        */
+
+        // Polyfills for Reduce---------------------
+
+        /*
+        Array.prototype.myReduce = function(cb, initialValue) {
+            var accumulator = initialValue;
+            for(let i=0; i<this.length; i++) {
+                accumulator = accumulator ? cb(accumulator, this[i], i, this) : this[i];
+            }
+            return accumulator;
+        }
+
+        const nums = [1,2,3,4];
+        const sums = nums.myReduce((acc, curr, i, arr) => {
+            return acc + curr;
+        }, 0)
+        console.log(sums);
+        */
+
+        // Map and For Each ------------------------
+
+        let students = [
+            { name: "Piyush", rollNumber: 31, marks: 80 }, {name: "Jenny", rollNumber: 15, marks: 69 }, {name:"Kaushal", rollNumber: 16, marks: 35 }, {name: "Dilpreet", rollNumber: 7, marks: 55 },
+        ];
+
+        const total = students.map(stu => {
+            if(stu.marks < 60) {
+                stu.marks += 20;
+            }
+            return stu
+        }).filter((stu) => stu.marks > 60).reduce((acc, curr) => acc + curr.marks, 0);
+        
+
+        console.log(total)
+
+
+
+    </script>
+</body>
+</html>
