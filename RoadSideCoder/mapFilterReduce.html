@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-</head>
-<body>
+  </head>
+  <body>
     <script>
-        /*
+      /*
         const nums = [1, 2, 3, 4];
         const sum = nums.reduce((acc, curr, i, arr) => {
             return acc + curr;
@@ -15,10 +15,10 @@
         console.log(sum);
         */
 
-        // Polyfills for map ----------------------
-        // nums.map((num, i , arr) => {})
+      // Polyfills for map ----------------------
+      // nums.map((num, i , arr) => {})
 
-        /*
+      /*
         Array.prototype.myMap = function (cb) {
             let arr = [];
             for (let i = 0; i < this.length; i++) {
@@ -34,10 +34,10 @@
         console.log(sum);
         */
 
-        // Polyfills for Filter-------------------
-        // num, i, arr
+      // Polyfills for Filter-------------------
+      // num, i, arr
 
-        /*
+      /*
         Array.prototype.myFilter = function (cb)  {
             let arr2 = [];
             for(let i =0; i< this.length; i++) {
@@ -53,9 +53,9 @@
         console.log(display);
         */
 
-        // Polyfills for Reduce---------------------
+      // Polyfills for Reduce---------------------
 
-        /*
+      /*
         Array.prototype.myReduce = function(cb, initialValue) {
             var accumulator = initialValue;
             for(let i=0; i<this.length; i++) {
@@ -71,24 +71,146 @@
         console.log(sums);
         */
 
-        // Map and For Each ------------------------
+      // Map and For Each ------------------------
 
-        let students = [
-            { name: "Piyush", rollNumber: 31, marks: 80 }, {name: "Jenny", rollNumber: 15, marks: 69 }, {name:"Kaushal", rollNumber: 16, marks: 35 }, {name: "Dilpreet", rollNumber: 7, marks: 55 },
-        ];
+      let students = [
+        { name: "Piyush", rollNumber: 31, marks: 80 },
+        { name: "Jenny", rollNumber: 15, marks: 69 },
+        { name: "Kaushal", rollNumber: 16, marks: 35 },
+        { name: "Dilpreet", rollNumber: 7, marks: 55 },
+      ];
 
-        const total = students.map(stu => {
-            if(stu.marks < 60) {
-                stu.marks += 20;
+      const total = students
+        .map((stu) => {
+          if (stu.marks < 60) {
+            stu.marks += 20;
+          }
+          return stu;
+        })
+        .filter((stu) => stu.marks > 60)
+        .reduce((acc, curr) => acc + curr.marks, 0);
+
+      console.log(total);
+
+      // Closure------------------------------
+      //   function first() {
+      //     var name = "wahid";
+      //     function second(char) {
+      //       console.log(name, char);
+      //     }
+      //     return second;
+      //   }
+      //   first()("ali");
+
+      /*
+        function find(index) {
+            let a = [];
+            for(let i =0 ; i< 1000000; i++) {
+                a[i] = i*i;
             }
-            return stu
-        }).filter((stu) => stu.marks > 60).reduce((acc, curr) => acc + curr.marks, 0);
-        
+            console.log(a[index])
+        }
 
-        console.log(total)
+        console.time("6");
+        find(6);
+        console.timeEnd("6");
 
+        console.time("12")
+        find(50);
+        console.timeEnd("12");
+        */
 
+      // Optimize time with closure --------
+      /*
+      function find() {
+        let a = [];
+        for (let i = 0; i < 1000000; i++) {
+          a[i] = i * i;
+        }
+        return function (index) {
+          console.log(a[index]);
+        };
+      }
+      const closure = find();
 
+      console.time("6");
+      closure(6);
+      console.timeEnd("6");
+
+      console.time("12");
+      closure(50);
+      console.timeEnd("12");
+      */
+
+      // SetTimeOut-------------------
+
+      //   function a() {
+      //     for (var i = 0; i < 3; i++) {
+      //       setTimeout(function log() {
+      //         console.log(i);
+      //       }, i * 1000);
+      //     }
+      //   }
+
+      //   a();
+
+      // for (var i = 0; i < 3; i++) {
+      //   function closures(i) {
+      //     setTimeout(function log() {
+      //       console.log(i);
+      //     }, i * 1000);
+      //   }
+      //   closures(i);
+      // }
+
+      /*
+      function counter() {
+        var _counter = 0;
+
+        function add(increments) {
+          _counter += increments;
+        }
+
+        function retrive() {
+          return "counter Is: " + _counter;
+        }
+
+        return {
+          add,
+          retrive,
+        };
+      }
+
+      const a = counter();
+      a.add(10);
+      a.add(20);
+
+      console.log(a.retrive());
+      */
+
+      // Currying ----------------------------
+
+      //   function add(a) {
+      //     return function (b) {
+      //       return function (c) {
+      //         return a + b + c;
+      //       };
+      //     };
+      //   }
+
+      //   console.log(add(2)(3)(4));
+
+      // Inifnite Currying-----------------
+      function add(a) {
+        return function (b) {
+          if (b) return add(a + b);
+          return a;
+        };
+      }
+
+      console.log(add(2)(4)(5)(6)(9)());
+
+      //Converts f(a, b, c) into f(a) (b) (c)
     </script>
-</body>
+  </body>
 </html>
